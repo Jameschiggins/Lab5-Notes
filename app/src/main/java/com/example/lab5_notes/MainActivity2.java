@@ -39,6 +39,10 @@ public class MainActivity2 extends AppCompatActivity {
                 sharedPreferences.edit().remove(MainActivity.usernameKey).apply();
                 startActivity(intent);
                 return true;
+            case R.id.option2:
+                Intent intent2 = new Intent(this, MainActivity3.class);
+                startActivity(intent2);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
