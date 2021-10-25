@@ -1,6 +1,8 @@
 package com.example.lab5_notes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,11 +18,9 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5_notes", Context.MODE_PRIVATE);
         welcome = (TextView) findViewById(R.id.welcome);
-        Intent intent = getIntent();
-        String str = intent.getStringExtra("username");
-        welcome.setText("Welcome " + str + "!");
+        welcome.setText("Welcome " + sharedPreferences.getString(MainActivity.usernameKey,"") + "!");
     }
 
     @Override
@@ -35,7 +35,10 @@ public class MainActivity2 extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.option1:
                 Intent intent = new Intent(this, MainActivity.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("com.example.lab5_notes", Context.MODE_PRIVATE);
+                sharedPreferences.edit().remove(MainActivity.usernameKey).apply();
                 startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
